@@ -1,25 +1,30 @@
-var cube = document.getElementById('cube');
-var isDragging = false;
-var previousX, previousY;
+const cube = document.getElementById('cube');
+let isDragging = false;
+let previousX, previousY;
+let xRotation = 45;
+let yRotation = 45;
 
-cube.addEventListener('mousedown', function(e) {
+cube.addEventListener('mousedown', (e) => {
   isDragging = true;
   previousX = e.clientX;
   previousY = e.clientY;
 });
 
-document.addEventListener('mousemove', function(e) {
+document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
 
-  var deltaX = e.clientX - previousX;
-  var deltaY = e.clientY - previousY;
+  const deltaX = e.clientX - previousX;
+  const deltaY = e.clientY - previousY;
 
-  cube.style.transform = 'rotateX(' + (deltaY + 45) + 'deg) rotateY(' + (deltaX + 45) + 'deg)';
+  xRotation -= deltaY * 0.2;
+  yRotation += deltaX * 0.2;
+
+  cube.style.transform = `rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
 
   previousX = e.clientX;
   previousY = e.clientY;
 });
 
-document.addEventListener('mouseup', function() {
+document.addEventListener('mouseup', () => {
   isDragging = false;
 });
